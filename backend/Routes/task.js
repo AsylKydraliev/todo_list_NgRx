@@ -38,5 +38,30 @@ router.get('/', async (req, res, next) => {
     }
 });
 
+router.put('/:id', async (req, res, next) => {
+    try{
+        const newTask = {
+            user: req.body.user,
+            status: req.body.status
+        };
+
+        const task1 = new Task(newTask);
+        await task1.save();
+
+        return res.send(task1);
+    }catch (e){
+        next(e);
+    }
+});
+
+router.delete('/:id', async (req, res, next) => {
+    try{
+        const task = await Task.deleteOne({_id: req.params.id});
+
+        return res.send(task);
+    }catch (e){
+        next(e);
+    }
+});
 
 module.exports = router;

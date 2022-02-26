@@ -20,5 +20,17 @@ router.post('/', async (req, res, next) => {
     }catch (e){
         next(e);
     }
-})
+});
+
+router.get('/', async (req, res, next) => {
+    try{
+        const users = await User.find();
+
+        return res.send(users);
+    }catch (e){
+        next(e);
+    }
+});
+
+
 module.exports = router;

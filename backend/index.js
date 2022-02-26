@@ -3,6 +3,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 
 const config = require('./config');
+const users = require('./Routes/user');
 
 const app = express();
 
@@ -10,6 +11,7 @@ const port = 8000;
 
 app.use(cors({origin: 'http://localhost:4200'}));
 app.use(express.json());
+app.use('/users', users);
 
 const run = async () => {
     await mongoose.connect(config.mongo.db, config.mongo.options);

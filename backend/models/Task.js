@@ -2,14 +2,15 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const TaskSchema = new Schema({
-    user: String,
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+    },
     text: {
         required: true,
         type: String
     },
-    status: {
-        type: String
-    }
+    status: String
 });
 
 const Task = mongoose.model('Task', TaskSchema);

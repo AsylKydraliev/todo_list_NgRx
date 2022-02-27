@@ -18,6 +18,8 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { tasksReducer } from './store/tasks.reducer';
+import { TasksEffects } from './store/tasks.effects';
 
 @NgModule({
   declarations: [
@@ -39,8 +41,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatSelectModule,
     MatCardModule,
     MatIconModule,
-    StoreModule.forRoot({}, {}),
-    EffectsModule.forRoot([])
+    StoreModule.forRoot({tasks: tasksReducer}, {}),
+    EffectsModule.forRoot([TasksEffects])
   ],
   providers: [],
   bootstrap: [AppComponent]

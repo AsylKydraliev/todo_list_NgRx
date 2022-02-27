@@ -1,7 +1,7 @@
 <h1>Tasks</h1>
 
-<mat-card fxLayoutAlign="space-between center">
-  <span class="task"><strong>Task: </strong>Lorem lias, ipsum!</span>
+<mat-card fxLayoutAlign="space-between center" *ngFor="let task of tasks | async">
+  <span class="task"><strong>Task: </strong>{{ task.text }}</span>
   <mat-form-field appearance="outline">
     <mat-label>User</mat-label>
     <mat-select>
@@ -10,7 +10,7 @@
     </mat-select>
   </mat-form-field>
   <mat-form-field appearance="outline">
-    <mat-label>User</mat-label>
+    <mat-label>Status</mat-label>
     <mat-select>
       <mat-option value=""></mat-option>
       <mat-option value="one">First option</mat-option>

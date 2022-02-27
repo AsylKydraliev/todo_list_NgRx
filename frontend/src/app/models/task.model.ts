@@ -6,3 +6,10 @@ export class Task {
     public status: string
   ) {}
 }
+
+export interface ApiTaskData {
+  _id: string,
+  user: string,
+  text: string,
+  status: string,
+}

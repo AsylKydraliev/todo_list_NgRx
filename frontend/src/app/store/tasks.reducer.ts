@@ -27,7 +27,13 @@ export const tasksReducer = createReducer(
   on(createTasksRequest, state => ({...state, createLoading: true})),
   on(createTasksSuccess, state => ({...state, createLoading: false})),
   on(createTasksFailure, (state, {error}) => ({...state, createLoading: false, createError: error})),
-  on(removeTasksRequest, (state, {id}) => ({...state, removeLoading: true, id})),
+  on(removeTasksRequest, (state, {id}) => {
+    const updateTasks = state.tasks.filter(task => {
+      return task._id !== id;
+    });
+
+    return {...state, tasks: updateTasks, removeLoading: true}
+  }),
   on(removeTasksSuccess, state => ({...state, removeLoading: false})),
   on(removeTasksFailure, (state, {error}) => ({...state, removeLoading: true, fetchError: error})),
 );

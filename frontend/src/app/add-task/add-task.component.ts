@@ -18,7 +18,7 @@ export class AddTaskComponent implements OnInit {
   users: Observable<User[]>;
 
   constructor(private store: Store<AppState>) {
-    this.users = this.store.select(state => state.users.users)
+    this.users = this.store.select(state => state.users.users);
   }
 
   ngOnInit(): void {

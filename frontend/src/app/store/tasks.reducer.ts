@@ -6,7 +6,7 @@ import {
   createTasksSuccess,
   fetchTasksFailure,
   fetchTasksRequest,
-  fetchTasksSuccess
+  fetchTasksSuccess, removeTasksFailure, removeTasksRequest, removeTasksSuccess
 } from './tasks.actions';
 
 const initialState: TasksState = {
@@ -14,7 +14,9 @@ const initialState: TasksState = {
   fetchLoading: false,
   fetchError: null,
   createLoading: false,
-  createError: null
+  createError: null,
+  removeLoading: false,
+  removeError: null
 }
 
 export const tasksReducer = createReducer(
@@ -25,4 +27,7 @@ export const tasksReducer = createReducer(
   on(createTasksRequest, state => ({...state, createLoading: true})),
   on(createTasksSuccess, state => ({...state, createLoading: false})),
   on(createTasksFailure, (state, {error}) => ({...state, createLoading: false, createError: error})),
+  on(removeTasksRequest, (state, {id}) => ({...state, removeLoading: true, id})),
+  on(removeTasksSuccess, state => ({...state, removeLoading: false})),
+  on(removeTasksFailure, (state, {error}) => ({...state, removeLoading: true, fetchError: error})),
 );

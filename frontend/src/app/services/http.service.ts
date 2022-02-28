@@ -41,4 +41,8 @@ export class HttpService {
   createTask(task: NewTaskData){
    return this.http.post(environment.apiUrl + '/tasks', task);
   }
+
+  removeTask(id: string){
+    return this.http.delete(environment.apiUrl + '/tasks/' + id);
+  }
 }

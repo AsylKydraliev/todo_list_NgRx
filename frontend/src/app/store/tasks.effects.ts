@@ -7,7 +7,7 @@ import {
   createTasksSuccess,
   fetchTasksFailure,
   fetchTasksRequest,
-  fetchTasksSuccess
+  fetchTasksSuccess, removeTasksFailure, removeTasksRequest, removeTasksSuccess
 } from './tasks.actions';
 import { catchError, map, mergeMap, of, tap } from 'rxjs';
 import { Router } from '@angular/router';
@@ -30,6 +30,16 @@ export class TasksEffects {
       tap(() => this.router.navigate(['/'])),
       catchError(() => {
         return of(createTasksFailure({error: 'Wrong task data'}))
+      })
+    ))
+  ));
+
+  removeTask = createEffect(() => this.actions.pipe(
+    ofType(removeTasksRequest),
+    mergeMap(({id}) => this.httpService.removeTask(id).pipe(
+      map(() => removeTasksSuccess()),
+      catchError(() => {
+        return of(removeTasksFailure({error: 'Something went wrong'}))
       })
     ))
   ))

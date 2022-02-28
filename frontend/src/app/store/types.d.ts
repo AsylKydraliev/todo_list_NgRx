@@ -6,7 +6,9 @@ export type TasksState = {
   fetchLoading: boolean,
   fetchError: null | string,
   createLoading: boolean,
-  createError: null | string
+  createError: null | string,
+  removeLoading: boolean,
+  removeError: null | string
 };
 
 export type UsersState = {

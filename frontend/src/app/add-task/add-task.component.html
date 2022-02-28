@@ -1,15 +1,20 @@
 <mat-card>
-  <form class="example-form" fxLayout="column">
+  <form class="example-form" fxLayout="column" (ngSubmit)="onSend()" #form="ngForm">
     <mat-form-field appearance="outline">
       <mat-label>Task text</mat-label>
-      <input matInput required>
+      <input matInput required name="text" ngModel>
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>User</mat-label>
-      <mat-select>
-        <mat-option value=""></mat-option>
-        <mat-option value="one">First option</mat-option>
+      <mat-select name="user" ngModel>
+        <mat-option
+          *ngFor="let user of users | async"
+          [value]="user._id"
+        >
+          {{ user.name }}
+        </mat-option>
       </mat-select>
     </mat-form-field>
+    <button mat-raised-button color="accent">Send</button>
   </form>
 </mat-card>

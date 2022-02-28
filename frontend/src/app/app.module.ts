@@ -20,6 +20,9 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { tasksReducer } from './store/tasks.reducer';
 import { TasksEffects } from './store/tasks.effects';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { usersReducer } from './store/users.reducer';
+import { UsersEffects } from './store/users.effects';
 
 @NgModule({
   declarations: [
@@ -41,8 +44,9 @@ import { TasksEffects } from './store/tasks.effects';
     MatSelectModule,
     MatCardModule,
     MatIconModule,
-    StoreModule.forRoot({tasks: tasksReducer}, {}),
-    EffectsModule.forRoot([TasksEffects])
+    StoreModule.forRoot({tasks: tasksReducer, users: usersReducer}, {}),
+    EffectsModule.forRoot([TasksEffects, UsersEffects]),
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

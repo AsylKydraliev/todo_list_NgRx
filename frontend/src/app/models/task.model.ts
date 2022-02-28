@@ -8,8 +8,13 @@ export class Task {
 }
 
 export interface ApiTaskData {
-  _id: string,
-  user: string,
-  text: string,
-  status: string,
+  _id: string;
+  user: string;
+  text: string;
+  status: string;
+}
+
+export interface NewTaskData {
+  text: string;
+  user: string;
 }

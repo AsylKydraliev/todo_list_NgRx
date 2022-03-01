@@ -51,9 +51,6 @@ router.put('/:id', async (req, res, next) => {
         if (req.body.status) {
             await Task.updateOne({_id: req.params.id}, {status: req.body.status});
         }
-        if(req.body === null){
-            return 'N/A'
-        }
 
         return res.send('Update task by ID = ' + req.params.id);
     }catch (e){

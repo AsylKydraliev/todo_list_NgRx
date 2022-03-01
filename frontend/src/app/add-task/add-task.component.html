@@ -2,10 +2,12 @@
 
 <mat-card>
   <form class="example-form" fxLayout="column" (ngSubmit)="onSend()" #form="ngForm">
+
     <mat-form-field appearance="outline">
       <mat-label>Task text</mat-label>
       <input matInput required name="text" ngModel>
     </mat-form-field>
+
     <mat-form-field appearance="outline">
       <mat-label>User</mat-label>
       <mat-select name="user" ngModel>
@@ -17,9 +19,12 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
+
     <ng-template #btnSend>
-      <button mat-raised-button color="accent">Send</button>
+      <button [disabled]="form.invalid" mat-raised-button color="accent">Send</button>
     </ng-template>
+
     <mat-progress-bar mode="indeterminate" *ngIf="loading | async else btnSend"></mat-progress-bar>
+
   </form>
 </mat-card>

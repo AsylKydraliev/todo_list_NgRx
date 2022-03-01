@@ -19,8 +19,8 @@ export class AddTaskComponent implements OnInit {
   loading: Observable<boolean>;
 
   constructor(private store: Store<AppState>) {
-    this.users = this.store.select(state => state.users.users);
-    this.loading = this.store.select(state => state.users.fetchLoading);
+    this.users = store.select(state => state.users.users);
+    this.loading = store.select(state => state.tasks.createLoading);
   }
 
   ngOnInit(): void {

@@ -1,15 +1,18 @@
 <h1>Tasks</h1>
 
 <mat-progress-spinner
+  fxLayoutAlign="center center"
   *ngIf="loading | async else tasksArea" mode="indeterminate"
 ></mat-progress-spinner>
 
 <ng-template #tasksArea>
+
   <mat-card fxLayoutAlign="space-between center" *ngFor="let task of tasks | async; let i = index">
     <span class="task"><strong>Task: </strong>{{ task.text }}</span>
     <mat-form-field appearance="outline">
       <mat-label>User</mat-label>
       <select name="user" matNativeControl (change)="onEdit($event, task._id, 'user')">
+
         <option [value]="null" *ngIf="task.user !== null">N/A</option>
         <option [value]="task.user !== null? task.user._id : null">
           {{ task.user !== null? task.user.name : 'N/A' }}
@@ -19,22 +22,29 @@
             {{user.name}}
           </option>
         </ng-container>
+
       </select>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>Status</mat-label>
+
       <select matNativeControl (change)="onEdit($event, task._id, 'status')">
         <option *ngIf="task.status" value="{{task.status}}">{{task.status}}</option>
         <option *ngIf="task.status !== 'done'" value="done">done</option>
         <option *ngIf="task.status !== 'In_progress'" value="In_progress">In_progress</option>
         <option *ngIf="task.status !== 'new'" value="new">new</option>
       </select>
+
     </mat-form-field>
-    <span *ngIf="loading | async else deleteBtn">Delete...</span>
+
+    <mat-progress-spinner *ngIf="removeLoading | async else deleteBtn" mode="indeterminate">
+    </mat-progress-spinner>
+
     <ng-template #deleteBtn>
       <mat-icon (click)="onDelete(task._id)">delete</mat-icon>
     </ng-template>
+
   </mat-card>
 </ng-template>
 

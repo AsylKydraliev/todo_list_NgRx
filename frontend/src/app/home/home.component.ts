@@ -17,6 +17,7 @@ export class HomeComponent implements OnInit {
   users: Observable<User[]>;
   loading: Observable<boolean>;
   removeLoading: Observable<boolean>;
+  removeId = '';
 
   constructor(private store: Store<AppState>) {
     this.tasks = store.select(state => state.tasks.tasks);
@@ -35,6 +36,7 @@ export class HomeComponent implements OnInit {
   }
 
   onEdit(event: Event, _id: string, where: string) {
+    this.removeId = _id;
     const selectValue = <HTMLSelectElement> event.target;
     const editTask = selectValue.value;
 

@@ -1,7 +1,6 @@
 <h1>Tasks</h1>
 
 <mat-progress-spinner
-  fxLayoutAlign="center center"
   *ngIf="loading | async else tasksArea" mode="indeterminate"
 ></mat-progress-spinner>
 
@@ -38,8 +37,10 @@
 
     </mat-form-field>
 
-    <mat-progress-spinner *ngIf="removeLoading | async else deleteBtn" mode="indeterminate">
-    </mat-progress-spinner>
+    <mat-progress-spinner
+      *ngIf="(removeLoading | async) && (removeId === task._id) else deleteBtn"
+      mode="indeterminate"
+    ></mat-progress-spinner>
 
     <ng-template #deleteBtn>
       <mat-icon (click)="onDelete(task._id)">delete</mat-icon>

@@ -23,6 +23,7 @@ import { TasksEffects } from './store/tasks.effects';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { usersReducer } from './store/users.reducer';
 import { UsersEffects } from './store/users.effects';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { UsersEffects } from './store/users.effects';
     MatIconModule,
     StoreModule.forRoot({tasks: tasksReducer, users: usersReducer}, {}),
     EffectsModule.forRoot([TasksEffects, UsersEffects]),
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatProgressBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

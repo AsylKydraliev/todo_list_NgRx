@@ -1,7 +1,10 @@
 export class Task {
   constructor(
     public _id: string,
-    public user: string,
+    public user: {
+      _id: string,
+      name: string
+    },
     public text: string,
     public status: string
   ) {}
@@ -9,7 +12,10 @@ export class Task {
 
 export interface ApiTaskData {
   _id: string;
-  user: string;
+  user: {
+    _id: string,
+    name: string
+  };
   text: string;
   status: string;
 }
@@ -17,4 +23,12 @@ export interface ApiTaskData {
 export interface NewTaskData {
   text: string;
   user: string;
+}
+
+export interface UserEditData {
+  user: string;
+}
+
+export interface StatusEditData {
+  status: string;
 }

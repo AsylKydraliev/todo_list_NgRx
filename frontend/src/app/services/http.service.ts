@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { ApiTaskData, NewTaskData, Task } from '../models/task.model';
+import { ApiTaskData, NewTaskData, StatusEditData, Task, UserEditData } from '../models/task.model';
 import { ApiUserData, User } from '../models/user.model';
 
 @Injectable({providedIn: 'root'})
@@ -44,5 +44,9 @@ export class HttpService {
 
   removeTask(id: string){
     return this.http.delete(environment.apiUrl + '/tasks/' + id);
+  }
+
+  editTask(id: string, task: UserEditData | StatusEditData){
+    return this.http.put(environment.apiUrl + '/tasks/' + id, task);
   }
 }

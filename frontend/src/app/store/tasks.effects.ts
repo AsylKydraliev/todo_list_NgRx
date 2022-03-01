@@ -4,7 +4,7 @@ import { HttpService } from '../services/http.service';
 import {
   createTasksFailure,
   createTasksRequest,
-  createTasksSuccess,
+  createTasksSuccess, editTasksFailure, editTasksRequest, editTasksSuccess,
   fetchTasksFailure,
   fetchTasksRequest,
   fetchTasksSuccess, removeTasksFailure, removeTasksRequest, removeTasksSuccess
@@ -42,7 +42,17 @@ export class TasksEffects {
         return of(removeTasksFailure({error: 'Something went wrong'}))
       })
     ))
-  ))
+  ));
+
+  editTask = createEffect(() => this.actions.pipe(
+    ofType(editTasksRequest),
+    mergeMap(({id, task}) => this.httpService.editTask(id, task).pipe(
+      map(() => editTasksSuccess()),
+      catchError(() => {
+        return of(editTasksFailure({error: 'Something went wrong'}))
+      })
+    ))
+  ));
 
   constructor(
     private httpService: HttpService,

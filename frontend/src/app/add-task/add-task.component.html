@@ -17,6 +17,9 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <button mat-raised-button color="accent">Send</button>
+    <ng-template #btnSend>
+      <button mat-raised-button color="accent">Send</button>
+    </ng-template>
+    <mat-progress-bar mode="indeterminate" *ngIf="loading | async else btnSend"></mat-progress-bar>
   </form>
 </mat-card>

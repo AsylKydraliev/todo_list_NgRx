@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { NewTaskData, Task } from '../models/task.model';
+import { NewTaskData, StatusEditData, Task, UserEditData } from '../models/task.model';
 
 export const fetchTasksRequest = createAction('[Tasks], Fetch Request');
 export const fetchTasksSuccess = createAction('[Tasks], Fetch Success', props<{ tasks: Task[] }>());
@@ -12,3 +12,11 @@ export const createTasksFailure = createAction('[Tasks], Create Failure', props<
 export const removeTasksRequest = createAction('[Tasks], Remove Request', props<{ id: string }>());
 export const removeTasksSuccess = createAction('[Tasks], Remove Success');
 export const removeTasksFailure = createAction('[Tasks], Remove Failure', props<{ error: string }>());
+
+export const editTasksRequest = createAction(
+  '[Tasks], Edit Request',
+  props<{ id: string, task: UserEditData | StatusEditData }>());
+export const editTasksSuccess = createAction('[Tasks], Edit Success');
+export const editTasksFailure = createAction('[Tasks], Edit Failure', props<{ error: string }>());
+
+

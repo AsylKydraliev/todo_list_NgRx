@@ -8,7 +8,9 @@ export type TasksState = {
   createLoading: boolean,
   createError: null | string,
   removeLoading: boolean,
-  removeError: null | string
+  removeError: null | string,
+  editLoading: boolean,
+  editError: null | string
 };
 
 export type UsersState = {

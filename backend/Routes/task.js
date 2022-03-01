@@ -40,26 +40,22 @@ router.get('/', async (req, res, next) => {
 
 router.put('/:id', async (req, res, next) => {
     try{
-        let task = await Task.findByIdAndUpdate({_id: req.params.id});
+        if (req.body.user) {
+            if (req.body.user === 'null') {
+                await Task.updateOne({_id: req.params.id}, {user: null});
 
-        task = {
-            text: task.text,
-            user: task.user,
-            status: task.status
+            } else {
+                await Task.updateOne({_id: req.params.id}, {user: req.body.user});
+            }
+        }
+        if (req.body.status) {
+            await Task.updateOne({_id: req.params.id}, {status: req.body.status});
+        }
+        if(req.body === null){
+            return 'N/A'
         }
 
-        if(req.body.user){
-            task.user = req.body.user;
-        }
-
-        if(req.body.status){
-            task.status = req.body.status;
-        }
-
-        const newTask = new Task(task);
-        await newTask.save();
-
-        return res.send(newTask);
+        return res.send('Update task by ID = ' + req.params.id);
     }catch (e){
         next(e);
     }

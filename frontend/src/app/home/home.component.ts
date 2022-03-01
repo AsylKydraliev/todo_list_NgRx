@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../store/types';
 import { Observable } from 'rxjs';
-import { Task } from '../models/task.model';
-import { fetchTasksRequest, removeTasksRequest } from '../store/tasks.actions';
+import { StatusEditData, Task, UserEditData } from '../models/task.model';
+import { editTasksRequest, fetchTasksRequest, removeTasksRequest } from '../store/tasks.actions';
 import { User } from '../models/user.model';
 import { fetchUsersRequest } from '../store/users.actions';
 
@@ -19,8 +19,7 @@ export class HomeComponent implements OnInit {
   userObj!: any;
   statuses = ['new', 'In_progress', 'done'];
   status = '';
-  userName = '';
-
+  @ViewChild('userName') userName!: ElementRef;
 
   constructor(private store: Store<AppState>) {
     this.tasks = store.select(state => state.tasks.tasks);
@@ -41,5 +40,25 @@ export class HomeComponent implements OnInit {
 
   onDelete(_id: string) {
     this.store.dispatch(removeTasksRequest({id: _id}));
+  }
+
+  onEdit(event: Event, _id: string, where: string) {
+    const selectValue = <HTMLSelectElement> event.target;
+    const editTask = selectValue.value;
+
+    const taskUser: UserEditData = {
+      user: editTask,
+    }
+
+    const taskStatus: StatusEditData = {
+      status: editTask,
+    }
+
+    if(where === 'user'){
+      this.store.dispatch(editTasksRequest({id: _id, task: taskUser}));
+    }
+    if(where === 'status'){
+      this.store.dispatch(editTasksRequest({id: _id, task: taskStatus}));
+    }
   }
 }

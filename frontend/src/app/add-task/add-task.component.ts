@@ -16,9 +16,11 @@ import { NewTaskData } from '../models/task.model';
 export class AddTaskComponent implements OnInit {
   @ViewChild('form') form!: NgForm;
   users: Observable<User[]>;
+  loading: Observable<boolean>;
 
   constructor(private store: Store<AppState>) {
     this.users = this.store.select(state => state.users.users);
+    this.loading = this.store.select(state => state.users.fetchLoading);
   }
 
   ngOnInit(): void {

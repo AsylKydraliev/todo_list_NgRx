@@ -9,24 +9,32 @@
     <span class="task"><strong>Task: </strong>{{ task.text }}</span>
     <mat-form-field appearance="outline">
       <mat-label>User</mat-label>
-      <mat-select name="user" ngModel>
-        <mat-option
-          *ngFor="let user of users | async"
-          value=""
-        >
-          {{user.name}}
-        </mat-option>
-      </mat-select>
+      <select name="user" matNativeControl (change)="onEdit($event, task._id, 'user')">
+        <option [value]="null" *ngIf="task.user !== null">N/A</option>
+        <option [value]="task.user !== null? task.user._id : null">
+          {{ task.user !== null? task.user.name : 'N/A' }}
+        </option>
+        <ng-container *ngFor="let user of users | async">
+          <option [value]="user._id" *ngIf="task.user === null || task.user.name !== user.name">
+            {{user.name}}
+          </option>
+        </ng-container>
+      </select>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>Status</mat-label>
-      <mat-select name="status" ngModel>
-        <mat-option value="">{{task.status}}</mat-option>
-        <mat-option *ngFor="let status of statuses" value="{{status}}">{{status}}</mat-option>
-      </mat-select>
+      <select matNativeControl (change)="onEdit($event, task._id, 'status')">
+        <option *ngIf="task.status" value="{{task.status}}">{{task.status}}</option>
+        <option *ngIf="task.status !== 'done'" value="done">done</option>
+        <option *ngIf="task.status !== 'In_progress'" value="In_progress">In_progress</option>
+        <option *ngIf="task.status !== 'new'" value="new">new</option>
+      </select>
     </mat-form-field>
-    <mat-icon (click)="onDelete(task._id)">delete</mat-icon>
+    <span *ngIf="loading | async else deleteBtn">Delete...</span>
+    <ng-template #deleteBtn>
+      <mat-icon (click)="onDelete(task._id)">delete</mat-icon>
+    </ng-template>
   </mat-card>
 </ng-template>
 
